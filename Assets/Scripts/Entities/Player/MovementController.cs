@@ -47,7 +47,5 @@ namespace Entities.Player
             _moveInput = Input.GetAxisRaw("Horizontal");
             _rb2D.velocity = new Vector2(_moveInput * _forceScale * _movementSpeed, _rb2D.velocity.y);
         }
-        
-
     }
 }
