@@ -18,6 +18,7 @@ namespace Entities.Player
         {
             _rb2D = GetComponent<Rigidbody2D>();
             _anim = GetComponent<Animator>();
+            _anim.SetFloat(AnimMoveX,  (int)CharStates.AnimRight);
         }
 
         // Update is called once per frame

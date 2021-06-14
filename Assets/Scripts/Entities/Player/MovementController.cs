@@ -5,7 +5,7 @@ namespace Entities.Player
 {
     public class MovementController : MonoBehaviour
     {
-        private float _movementSpeed = 2f;
+        private float _movementSpeed = 1.5f;
         private float _jumpForce = 4f;
         private float _forceScale = 6.25f;
         private Rigidbody2D _rb2D;
@@ -15,11 +15,14 @@ namespace Entities.Player
         public float checkRadius;
         public LayerMask whatIsGrounded;
         private static readonly int AnimMoveX = Animator.StringToHash("AnimMoveX");
+        private Animator _anim;
+        private static readonly int IsWalking = Animator.StringToHash("IsWalking");
 
         // Start is called before the first frame update
         void Start()
         {
             _rb2D = GetComponent<Rigidbody2D>();
+            _anim = GetComponent<Animator>();
         }
 
         // Update is called once per frame
@@ -46,6 +49,7 @@ namespace Entities.Player
         {
             _moveInput = Input.GetAxisRaw("Horizontal");
             _rb2D.velocity = new Vector2(_moveInput * _forceScale * _movementSpeed, _rb2D.velocity.y);
+            _anim.SetBool(IsWalking, _moveInput != 0);
         }
     }
 }
