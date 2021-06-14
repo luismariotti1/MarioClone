@@ -1,14 +1,19 @@
 using System;
 using UnityEngine;
 
-namespace Assets.Scripts.Entities.Player
+namespace Player
 {
     public class MovementController : MonoBehaviour
     {
         private float _movementSpeed = 2f;
+        private float _jumpForce = 4f;
         private float _forceScale = 6.25f;
-        private Vector2 _movement = new Vector2();
         private Rigidbody2D _rb2D;
+        private Boolean _isGrounded = true;
+        private float _moveInput;
+        public Transform feetPosition;
+        public float checkRadius;
+        public LayerMask whatIsGrounded;
 
         // Start is called before the first frame update
         void Start()
@@ -26,20 +31,20 @@ namespace Assets.Scripts.Entities.Player
             MoveCharacter();
             Jump();
         }
-
         private void Jump()
         {
-            if (Input.GetKey("space"))
+            _isGrounded = Physics2D.OverlapCircle(feetPosition.position, checkRadius, whatIsGrounded);
+            
+            if (Input.GetKey("space") && _isGrounded)
             {
-                print(Physics.gravity.y * _forceScale * -2);
-                _rb2D.AddForce(new Vector2(0, Physics.gravity.y * _forceScale * -2), ForceMode2D.Impulse);
+                _rb2D.velocity = Vector2.up * (_forceScale * _jumpForce);
             };
         }
         
-        private void MoveCharacter(){
-            _movement.x = Input.GetAxisRaw("Horizontal");
-            _movement.Normalize();
-            _rb2D.velocity = _movement * (_forceScale * _movementSpeed);
+        private void MoveCharacter()
+        {
+            _moveInput = Input.GetAxisRaw("Horizontal");
+            _rb2D.velocity = new Vector2(_moveInput * _forceScale * _movementSpeed, _rb2D.velocity.y);
         }
 
     }
