@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Player
+namespace Entities.Player
 {
     public class MovementController : MonoBehaviour
     {
@@ -14,6 +14,7 @@ namespace Player
         public Transform feetPosition;
         public float checkRadius;
         public LayerMask whatIsGrounded;
+        private static readonly int AnimMoveX = Animator.StringToHash("AnimMoveX");
 
         // Start is called before the first frame update
         void Start()
@@ -31,7 +32,7 @@ namespace Player
             MoveCharacter();
             Jump();
         }
-        private void Jump()
+        void Jump()
         {
             _isGrounded = Physics2D.OverlapCircle(feetPosition.position, checkRadius, whatIsGrounded);
             
@@ -41,11 +42,12 @@ namespace Player
             };
         }
         
-        private void MoveCharacter()
+        void MoveCharacter()
         {
             _moveInput = Input.GetAxisRaw("Horizontal");
             _rb2D.velocity = new Vector2(_moveInput * _forceScale * _movementSpeed, _rb2D.velocity.y);
         }
+        
 
     }
 }
