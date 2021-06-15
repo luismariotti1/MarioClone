@@ -29,14 +29,15 @@ namespace Entities.Player
         
         private void UpdateState()
         {
-            if(_rb2D.velocity.x > 0)
+            if(_rb2D.velocity.x > 0.1)
             {
                 _anim.SetFloat(AnimMoveX,  (int)CharStates.AnimRight);
             }
-            else if(_rb2D.velocity.x<0)
+            else if(_rb2D.velocity.x<-0.1)
             {
                 _anim.SetFloat(AnimMoveX,  (int)CharStates.AnimLeft);
             }
+            print(_rb2D.velocity.x);
         }
     }
 }
