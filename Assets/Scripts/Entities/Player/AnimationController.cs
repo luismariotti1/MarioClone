@@ -37,7 +37,6 @@ namespace Entities.Player
             {
                 _anim.SetFloat(AnimMoveX,  (int)CharStates.AnimLeft);
             }
-            print(_rb2D.velocity.x);
         }
     }
 }

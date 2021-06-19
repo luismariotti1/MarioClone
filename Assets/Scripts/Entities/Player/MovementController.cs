@@ -4,23 +4,23 @@ using UnityEngine;
 namespace Entities.Player
 {
     public class MovementController : MonoBehaviour
-    {
-        private float _movementSpeed = 1.5f;
-        private float _jumpForce = 4f;
+    { 
         private float _forceScale = 6.25f;
+        private float _moveInput;
+        public float checkRadius;
         private Rigidbody2D _rb2D;
         private Boolean _isGrounded = true;
-        private float _moveInput;
         public Transform feetPosition;
-        public float checkRadius;
         public LayerMask whatIsGrounded;
-        private static readonly int AnimMoveX = Animator.StringToHash("AnimMoveX");
         private Animator _anim;
+        private Player _player;
+        private static readonly int AnimMoveX = Animator.StringToHash("AnimMoveX");
         private static readonly int IsWalking = Animator.StringToHash("IsWalking");
 
         // Start is called before the first frame update
         void Start()
         {
+            _player = GetComponent<Player>();
             _rb2D = GetComponent<Rigidbody2D>();
             _anim = GetComponent<Animator>();
         }
@@ -28,7 +28,6 @@ namespace Entities.Player
         // Update is called once per frame
         void Update()
         {
-
         }
 
         void FixedUpdate() {
@@ -41,14 +40,14 @@ namespace Entities.Player
             
             if (Input.GetKey("space") && _isGrounded)
             {
-                _rb2D.velocity = Vector2.up * (_forceScale * _jumpForce);
+                _rb2D.velocity = Vector2.up * (_forceScale * _player._jumpForce.getStat());
             };
         }
         
         void MoveCharacter()
         {
             _moveInput = Input.GetAxisRaw("Horizontal");
-            _rb2D.velocity = new Vector2(_moveInput * _forceScale * _movementSpeed, _rb2D.velocity.y);
+            _rb2D.velocity = new Vector2(_moveInput * _forceScale * _player._movementSpeed.getStat(), _rb2D.velocity.y);
             _anim.SetBool(IsWalking, _moveInput != 0);
         }
     }
