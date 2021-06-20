@@ -40,14 +40,14 @@ namespace Entities.Player
             
             if (Input.GetKey("space") && _isGrounded)
             {
-                _rb2D.velocity = Vector2.up * (_forceScale * _player._jumpForce.getStat());
+                _rb2D.velocity = Vector2.up * (_forceScale * _player.getStats().jumpForce);
             };
         }
         
         void MoveCharacter()
         {
             _moveInput = Input.GetAxisRaw("Horizontal");
-            _rb2D.velocity = new Vector2(_moveInput * _forceScale * _player._movementSpeed.getStat(), _rb2D.velocity.y);
+            _rb2D.velocity = new Vector2(_moveInput * _forceScale * _player.getStats().movementSpeed, _rb2D.velocity.y);
             _anim.SetBool(IsWalking, _moveInput != 0);
         }
     }
