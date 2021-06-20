@@ -1,4 +1,4 @@
-using Helper;
+using System;
 using UnityEngine;
 
 namespace Entities.Player
@@ -16,6 +16,12 @@ namespace Entities.Player
         [SerializeField]
         private PlayerStats stats;
 
+        public Player()
+        {
+            stats.movementSpeed = 1;
+            stats.jumpForce = 3.25f;
+            stats.maxJumpForce = 4.25f;
+        }
         public PlayerStats getStats()
         {
             return stats;
